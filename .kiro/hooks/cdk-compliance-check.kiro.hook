@@ -1,0 +1,17 @@
+{
+  "enabled": true,
+  "name": "CDK Compliance Validation",
+  "description": "Automatically validates CloudFormation templates against financial compliance rules when CDK TypeScript files are saved. Synthesizes the CDK stack to JSON and runs CFN Guard validation, displaying results as diagnostics.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "loan-approval-service/lib/*.ts",
+      "loan-approval-service/bin/*.ts"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Run the following commands in the loan-approval-service directory and display results as diagnostics:\n1. npx cdk synth --json > cfn-template.json\n2. cfn-guard validate --data cfn-template.json --rules cfn-guard/financial-compliance.guard\n\nFormat the output to show:\n- Synthesis status and any errors\n- CFN Guard validation results with pass/fail status\n- Any compliance violations found\n- Display as diagnostic messages for the user"
+  }
+}
