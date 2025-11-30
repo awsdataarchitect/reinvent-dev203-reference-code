@@ -1,0 +1,50 @@
+#
+# Financial Services Compliance Rules - Business Logic Only
+# Excludes CDK internal functions
+#
+
+# Lambda Function Security Rules (Business Logic Only)
+rule lambda_timeout_limits {
+    Resources.*[ Type == 'AWS::Lambda::Function' ] {
+        Properties {
+            # Skip CDK internal functions like LogRetention
+            when Handler != "index.handler" {
+                # Timeout should be reasonable for financial services
+                Timeout <= 300
+                Timeout >= 3
+            }
+        }
+    }
+}
+
+# DynamoDB Security Rules
+rule dynamodb_encryption_at_rest {
+    Resources.*[ Type == 'AWS::DynamoDB::Table' ] {
+        Properties {
+            # Encryption at rest is mandatory for financial data
+            SSESpecification exists
+            SSESpecification.SSEEnabled == true
+        }
+    }
+}
+
+rule dynamodb_point_in_time_recovery {
+    Resources.*[ Type == 'AWS::DynamoDB::Table' ] {
+        Properties {
+            # Point-in-time recovery for audit compliance
+            PointInTimeRecoverySpecification exists
+            PointInTimeRecoverySpecification.PointInTimeRecoveryEnabled == true
+        }
+    }
+}
+
+# API Gateway Security Rules
+rule api_gateway_logging_enabled {
+    Resources.*[ Type == 'AWS::ApiGateway::Stage' ] {
+        Properties {
+            # API Gateway must have logging enabled
+            AccessLogSetting exists |OR|
+            MethodSettings exists
+        }
+    }
+}

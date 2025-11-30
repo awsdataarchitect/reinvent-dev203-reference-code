@@ -1,0 +1,58 @@
+{
+  "high_quality_applicant": {
+    "income": 100000,
+    "credit_score": 780,
+    "debt_to_income": 0.2,
+    "employment_years": 5,
+    "expected_result": "approved",
+    "expected_score_range": [90, 100]
+  },
+  "good_applicant": {
+    "income": 75000,
+    "credit_score": 720,
+    "debt_to_income": 0.3,
+    "employment_years": 3,
+    "expected_result": "approved",
+    "expected_score_range": [75, 89]
+  },
+  "marginal_applicant": {
+    "income": 50000,
+    "credit_score": 680,
+    "debt_to_income": 0.4,
+    "employment_years": 2,
+    "expected_result": "approved",
+    "expected_score_range": [70, 74]
+  },
+  "borderline_applicant": {
+    "income": 45000,
+    "credit_score": 650,
+    "debt_to_income": 0.45,
+    "employment_years": 1,
+    "expected_result": "denied",
+    "expected_score_range": [60, 69]
+  },
+  "poor_credit_applicant": {
+    "income": 30000,
+    "credit_score": 580,
+    "debt_to_income": 0.6,
+    "employment_years": 0,
+    "expected_result": "denied",
+    "expected_score_range": [0, 50]
+  },
+  "demo_scenarios": {
+    "lightning_talk_example": {
+      "income": 75000,
+      "credit_score": 720,
+      "debt_to_income": 0.3,
+      "employment_years": 3,
+      "description": "Perfect for live demo - clear approval case"
+    },
+    "edge_case_example": {
+      "income": 48000,
+      "credit_score": 670,
+      "debt_to_income": 0.42,
+      "employment_years": 1,
+      "description": "Interesting edge case - right at approval threshold"
+    }
+  }
+}
